@@ -1,10 +1,8 @@
 import './App.css';
-
+import Admin from './pages/Admin';
 function App() {
   return (
-    <div className="App">
-      <h1>Production Move</h1>
-    </div>
+    <Admin />
   );
 }
 

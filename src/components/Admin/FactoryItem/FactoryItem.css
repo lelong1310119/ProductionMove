@@ -1,0 +1,20 @@
+.factory {
+    display: block;
+    position: static;
+    width: 250px;
+    height: 450px;
+    background-color: #0F62FE;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+.factory div {
+    margin-left: 20px;
+    text-align: left;
+}
+.image-factory {
+    width: 250px;
+    border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+}
