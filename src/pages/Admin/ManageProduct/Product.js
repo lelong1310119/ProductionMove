@@ -1,8 +1,17 @@
-import { useState } from "react";
 import "./Product.css"
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ProductStateItem from "../../../components/Admin/ProductStateItem/ProductStateItem";
 
 const Product = () => {
-    const [productData, setProductData] = useState([]);
+    const getURL = "https://production-move-be.vercel.app/api/productions"
+    const [data, setData] = useState([])
+    useEffect(() => {
+        axios.get(getURL).then((response) => {
+            setData(response.data.productions);
+        });
+    }, [])
+
     return (
         <div>
             <h1>Quản lý trạng thái sản phẩm</h1>
@@ -24,6 +33,9 @@ const Product = () => {
                     </tr>
                 </thead>
                 <tbody>
+                    {data.map((item, index) => (
+                        <ProductStateItem key={index} props={item} index = {index + 1}/>
+                    ))}
                 </tbody>
             </table>
         </div>

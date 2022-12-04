@@ -1,8 +1,12 @@
 .container-home {
     display: inline-flex;
     flex-wrap: wrap;
-	justify-content: center;
+    justify-content: center;
     align-items: center
+}
+
+.button-add-productline {
+    display: block;
 }
 
 .back-form-addproductline {
@@ -46,6 +50,13 @@ input {
 label {
     margin: 10px;
     text-align: left;
+    position: static;
+    display: block;
+    height: 80px;
+}
+
+span {
+    color: red;
 }
 
 .add-productline-container {

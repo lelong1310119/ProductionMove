@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
-import './Menu.css'
+import './MenuAdmin.css'
+import { MenuOutlined, LeftOutlined } from '@ant-design/icons';
 const Menu = () => {
     
     const [showMenu, setShowMenu] = useState(false);
@@ -10,15 +11,15 @@ const Menu = () => {
     return (
         <div>
             <div className="header-admin">
-                <a href="#" onClick={handleMenu}>Menu</a>
+                <button className="button-menu" onClick={handleMenu}><MenuOutlined /></button>
             </div>
             {showMenu && 
             <div className="backmenu-admin">
                 <div className="modalmenu-admin"></div>
                 <nav className="menu-admin">
-                    <a href="#" className="exit-menu" onClick={handleMenu}>Đóng</a>
+                    <button className="exit-menu" onClick={handleMenu}><LeftOutlined /></button>
                     <div className="list">
-                        <div>
+                        <div className="first-list">
                             <Link to="/" onClick={handleMenu}>Dòng sản phẩm</Link>
                         </div>
                         <div>

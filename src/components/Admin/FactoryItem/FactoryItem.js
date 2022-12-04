@@ -7,14 +7,15 @@ const FactoryItem = ({props}) => {
             <img src={imageProductline}  className="image-factory"/>
             <div>
                 <h3>{props.name}</h3>
-                <p>Mã: {props.id}<br/>
+                <p>
+                {/* Mã: {props.manufacture_factory_id}<br/> */}
                 Địa chỉ: {props.address}<br/>
-                Số điện thoại: {props.phone}<br/>
+                Số điện thoại: {props.phone_number}<br/>
                 Số lượng đã sản xuất: {props.production_number}<br/>
-                Số lượng phân phối: {props.distribution_quantity}<br/>
-                Số lượng bảo hành: {props.amount_warranty}<br/>
-                Số lượng trả về: {props.return_amount}<br/>
-                Kho sản phẩm lỗi: {props.error_product}</p>
+                Số lượng phân phối: {props.productions_distributed}<br/>
+                Số lượng bảo hành: {props.guarantee_number}<br/>
+                Số lượng trả về: {props.production_return_back_number}<br/>
+                Kho sản phẩm lỗi: {props.error_number}</p>
             </div>
         </div>
     )

@@ -7,12 +7,13 @@ const WarrantyItem = ({props}) => {
             <img src={imageProductline}  className="image-warranty"/>
             <div>
                 <h3>{props.name}</h3>
-                <p>Mã: {props.id}<br/>
+                <p>
+                {/* Mã: {props.warranty_center_id}<br/> */}
                 Địa chỉ: {props.address}<br/>
-                Số điện thoại: {props.phone}<br/>
-                Đang bảo hành: {props.quantity_warrantying}<br/>
-                Đã bảo hành: {props.quantity_warrantied}<br/>
-                Lỗi không thể bảo hành: {props.error_warranty}</p>
+                Số điện thoại: {props.phone_number}<br/>
+                Đang bảo hành: {props.guaranteeing_number}<br/>
+                Đã bảo hành: {props.guarantee_done_number}<br/>
+                Lỗi không thể bảo hành: {props.can_not_guarantee}</p>
             </div>
         </div>
     )

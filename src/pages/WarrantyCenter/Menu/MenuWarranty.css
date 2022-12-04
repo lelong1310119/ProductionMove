@@ -1,4 +1,4 @@
-.menu-admin {
+.menu-warranty {
     width: 200px;
     height: 100%;
     background-color: #ffffff;
@@ -6,29 +6,35 @@
     position: relative;
 }
 
-.header-admin {
+.header-warranty {
     display: flex;
+    align-items: center;
     top: 0;
     width: 100%;
-    height: 65px;
+    height: 70px;
     background-color: #ffffff;
 }
 
 a {
     text-decoration: none;
+    color: black;
+    left: 20px;
 }
 
-.list {
+.list-warranty {
     position: relative;
-    top: 50px;
+    top: 20px;
 }
-.list div {
+.list-warranty div {
     display: block;
-    border-bottom: 1px solid #f1f1f1;
+    border-bottom: 1px solid black;
     padding: 5px;
 }
 
-.backmenu-admin {
+.list-warranty::after {
+    border-top: 1px solid black;
+}
+.backmenu-warranty {
     position: fixed;
     top: 0;
     left: 0;
@@ -36,9 +42,21 @@ a {
     bottom: 0;
 }
 
-.modalmenu-admin {
+.modalmenu-warranty {
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.25);
+}
+
+.button-menu-warranty {
+    padding: 10px;
+    position: static;
+    height: 40px;
+    margin: 15px;
+}
+
+.exit-menu-warranty {
+    padding: 10px;
+    margin: 15px;
 }

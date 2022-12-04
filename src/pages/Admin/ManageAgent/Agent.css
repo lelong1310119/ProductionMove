@@ -5,6 +5,10 @@
     align-items: center
 }
 
+.button-add-agent {
+    display: block;
+}
+
 .back-form-addagent {
     position: fixed;
     display: flex;
@@ -46,6 +50,13 @@ input {
 label {
     margin: 10px;
     text-align: left;
+    position: static;
+    display: block;
+    height: 80px;
+}
+
+span {
+    color: red;
 }
 
 .add-agent-container {
@@ -64,4 +75,8 @@ label {
 .add-agent-footer button {
     padding: 5px 10px 5px;
     margin: 10px;
+}
+
+form h2 {
+    margin-top: 0;
 }

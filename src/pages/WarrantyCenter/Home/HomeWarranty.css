@@ -1,15 +1,19 @@
-.container-warranty {
-    display: inline-flex;
-    flex-wrap: wrap;
-	justify-content: center;
-    align-items: center
+th,td {
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
-.button-add-warranty {
-    display: block;
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: 0 auto;
 }
 
-.back-form-addwarranty {
+body {
+    text-align: center;
+}
+
+.back-form-send {
     position: fixed;
     display: flex;
     top: 0;
@@ -20,7 +24,7 @@
     align-items: center
 }
 
-.modal-form-warranty {
+.modal-form-send {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -28,11 +32,11 @@
 
 }
 
-.add-warranty {
+.form-send {
     position: relative;
     display: block;
-    width: 600px;
-    height: 430px;
+    width: 400px;
+    height: 300px;
     background-color: white;
     padding: 20px;
     border-radius: 15px;
@@ -59,20 +63,20 @@ span {
     color: red;
 }
 
-.add-warranty-container {
+.send-container {
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center
 }
 
-.add-warranty-footer {
+.send-footer {
     display: flex;
     justify-content: center;
     align-items: center
 }
 
-.add-warranty-footer button {
+.send-footer button {
     padding: 5px 10px 5px;
     margin: 10px;
 }

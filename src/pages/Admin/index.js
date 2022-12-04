@@ -3,15 +3,15 @@ import Agent from "./ManageAgent/Agent";
 import Factory from "./ManageFactory/Factory";
 import Product from "./ManageProduct/Product";
 import Warranty from "./ManageWarranty/Warranty";
-import Menu from "./Menu/Menu";
-import Home from "./Home/Home";
+import MenuAdmin from "./Menu/MenuAdmin";
+import HomeAdmin from "./Home/HomeAdmin";
 
 const Admin = () => {
     return (
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Menu />}>
-              <Route index element={<Home />} />
+            <Route path="/" element={<MenuAdmin />}>
+              <Route index element={<HomeAdmin />} />
               <Route path="factory" element={<Factory />} />
               <Route path="agent" element={<Agent />} />
               <Route path="warranty" element={<Warranty />} />
