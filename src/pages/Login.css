@@ -1,0 +1,45 @@
+.login-form {
+    display: block;
+    position: relative;
+    width: 300px;
+    padding: 20px;
+    background-color: blue;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.back-login {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center
+}
+
+label {
+    height: 100px;
+}
+.select-login {
+    width: 268px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+label {
+    margin: 10px;
+    text-align: left;
+    position: static;
+    display: block;
+    height: 80px;
+}
+.login-button {
+    padding: 5px;
+    border-radius: 5px;
+}

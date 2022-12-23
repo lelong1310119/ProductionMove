@@ -4,7 +4,7 @@ import axios from "axios";
 import ProductStateItem from "../../../components/Admin/ProductStateItem/ProductStateItem";
 
 const Product = () => {
-    const getURL = "https://production-move-be.vercel.app/api/productions"
+    const getURL = "https://production-move-be.vercel.app/api/productions?page=1&per_page=10000"
     const [data, setData] = useState([])
     useEffect(() => {
         axios.get(getURL).then((response) => {

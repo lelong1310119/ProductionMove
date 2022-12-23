@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 
-const Home = () => {
+const HomeAdmin = () => {
     const [data, setData] = useState([])
     const postURL = "https://production-move-be.vercel.app/api/admins/create-production-line"
     const getURL = "https://production-move-be.vercel.app/api/product-lines"
@@ -104,4 +104,4 @@ const Home = () => {
     )
 }
 
-export default Home;
+export default HomeAdmin;

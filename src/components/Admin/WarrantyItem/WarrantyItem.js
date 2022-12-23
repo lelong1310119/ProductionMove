@@ -8,7 +8,7 @@ const WarrantyItem = ({props}) => {
             <div>
                 <h3>{props.name}</h3>
                 <p>
-                {/* Mã: {props.warranty_center_id}<br/> */}
+                Mã: {props.warranty_center_id.slice(0, 10)}<br/>
                 Địa chỉ: {props.address}<br/>
                 Số điện thoại: {props.phone_number}<br/>
                 Đang bảo hành: {props.guaranteeing_number}<br/>

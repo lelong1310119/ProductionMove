@@ -8,7 +8,7 @@ const FactoryItem = ({props}) => {
             <div>
                 <h3>{props.name}</h3>
                 <p>
-                {/* Mã: {props.manufacture_factory_id}<br/> */}
+                Mã: {props.manufacture_factory_id.slice(0, 10)}<br/>
                 Địa chỉ: {props.address}<br/>
                 Số điện thoại: {props.phone_number}<br/>
                 Số lượng đã sản xuất: {props.production_number}<br/>

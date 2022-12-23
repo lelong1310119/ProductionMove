@@ -1,19 +1,15 @@
-th,td {
-    border: 1px solid black;
-    border-collapse: collapse;
+.container-production-iot {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center
 }
 
-table {
-    border: 1px solid black;
-    border-collapse: collapse;
-    margin: 0 auto;
+.button-add-production-iot {
+    display: block;
 }
 
-body {
-    text-align: center;
-}
-
-.back-form-send {
+.back-form-addproductioniot {
     position: fixed;
     display: flex;
     top: 0;
@@ -24,25 +20,24 @@ body {
     align-items: center
 }
 
-.modal-form-send {
+.modal-form-productioniot {
     position: absolute;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.25);
-
 }
 
-.form-send {
+.add-productioniot {
     position: relative;
     display: block;
     width: 400px;
-    height: 400px;
+    height: 420px;
     background-color: white;
     padding: 20px;
     border-radius: 15px;
 }
 
-input, select {
+input {
     width: 268px;
     padding: 12px 20px;
     margin: 8px 0;
@@ -63,20 +58,20 @@ span {
     color: red;
 }
 
-.send-container {
+.add-productioniot-container {
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center
 }
 
-.send-footer {
+.add-productioniot-footer {
     display: flex;
     justify-content: center;
     align-items: center
 }
 
-.send-footer button {
+.add-productioniot-footer button {
     padding: 5px 10px 5px;
     margin: 10px;
 }

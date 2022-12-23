@@ -1,0 +1,20 @@
+.production-iot {
+    display: block;
+    position: static;
+    width: 250px;
+    height: 450px;
+    background-color: #0F62FE;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+.production-iot div {
+    margin-left: 20px;
+    text-align: left;
+}
+.image-product-iot {
+    width: 250px;
+    border-radius: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+}

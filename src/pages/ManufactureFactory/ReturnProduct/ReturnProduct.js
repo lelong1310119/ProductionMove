@@ -1,23 +1,25 @@
-import Api from "../../../api/Api";
-import "./Warrantied.css"
+import "./ReturnProduct.css"
 import { useEffect, useState } from "react";
-import WarrantiedItem from "../../../components/WarrantyCenter/WarrantiedItem/WarrantiedItem";
+import ReturnProductItem from "../../../components/ManufactureFactory/ReturnProductItem/ReturnProductItem";
+import Api from "../../../api/Api";
 
-const Warrantied = () => {
+const ReturnProduct = () => {
+
     const [data, setData] = useState([])
 
     const getData = async() => {
-        const response = await Api.getGuaranteeDoneProduction();
+        const response = await Api.getProductionReturn();
         setData(response.data.productions)
-        console.log(response)
+        console.log(response);
     }
 
     useEffect(() => {
         getData();
     }, [])
+
     return (
         <div>
-            <h1>Sản phẩm đã bảo hành</h1>
+            <h1>Sản phẩm bị trả về</h1>
             <table>
                 <thead>
                     <tr>
@@ -25,20 +27,13 @@ const Warrantied = () => {
                         <th>Mã sản phẩm</th>
                         <th>Dòng sản phẩm</th>
                         <th>Lô sản xuất</th>
-                        <th>Cơ sở sản xuất</th>
                         <th>Ngày sản xuất</th>
-                        <th>Ngày bảo hành</th>
-                        <th>Ngày gửi trả</th>
-                        <th>Tình trạng</th>
                         <th>Đại lý</th>
-                        <th>Khách hàng</th>
-                        <th>Địa chỉ</th>
-                        <th>Số điện thoại</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data.map((item, index) => (
-                        <WarrantiedItem key={index} props={item} index = {index + 1}/>
+                        <ReturnProductItem key={index} props={item} index = {index + 1}/>
                     ))}
                 </tbody>
             </table>
@@ -46,4 +41,4 @@ const Warrantied = () => {
     )
 }
 
-export default Warrantied;
+export default ReturnProduct;

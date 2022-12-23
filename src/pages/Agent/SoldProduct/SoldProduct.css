@@ -13,7 +13,18 @@ body {
     text-align: center;
 }
 
-.back-form-send {
+.container-warranty-product {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center
+}
+
+.button-warranty-product {
+    display: block;
+}
+
+.back-form-warrantyproduct {
     position: fixed;
     display: flex;
     top: 0;
@@ -24,7 +35,7 @@ body {
     align-items: center
 }
 
-.modal-form-send {
+.modal-form-warrantyproduct {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -32,7 +43,7 @@ body {
 
 }
 
-.form-send {
+.warranty-product {
     position: relative;
     display: block;
     width: 400px;
@@ -42,7 +53,7 @@ body {
     border-radius: 15px;
 }
 
-input, select {
+input {
     width: 268px;
     padding: 12px 20px;
     margin: 8px 0;
@@ -63,20 +74,21 @@ span {
     color: red;
 }
 
-.send-container {
+.warranty-product-container {
     display: inline-flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center
 }
 
-.send-footer {
+.warranty-product-footer {
     display: flex;
     justify-content: center;
     align-items: center
 }
 
-.send-footer button {
+.warranty-product-footer button {
     padding: 5px 10px 5px;
     margin: 10px;
 }
+

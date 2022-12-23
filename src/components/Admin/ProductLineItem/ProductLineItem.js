@@ -8,7 +8,7 @@ const ProductLineItem = ({props}) => {
             <div>
                 <h3>{props.name}</h3>
                 <p>
-                {/* Mã: {props.product_line_id}<br/> */}
+                Mã: {props.product_line_id.slice(0, 10)}<br/>
                 Ram: {props.configuration.ram}<br/>
                 CPU: {props.configuration.cpu}<br/>
                 Màn hình: {props.configuration.screen}<br/>

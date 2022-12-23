@@ -1,4 +1,4 @@
-const ProductStateItem  = ({props, index}) => {
+const SoldProductItem  = ({props, index}) => {
     switch (props.status) {
         case "NEW_PRODUCTION":
             props.status = "Mới sản xuất";
@@ -37,12 +37,12 @@ const ProductStateItem  = ({props, index}) => {
             <td>{props.production_time}</td>
             <td>{props.status}</td>
             <td>{props.sold_at}</td>
-            <td>{props.distribution_agent_name}</td>
             <td>{props.warranty_center_name}</td>
-            <td>{props.guarantee_number}</td>
             <td>{props.customer_name}</td>
+            <td>{props.customer_address}</td>
+            <td>{props.customer_phone_number}</td>
         </tr>
     )
 }
 
-export default ProductStateItem;
+export default SoldProductItem;
