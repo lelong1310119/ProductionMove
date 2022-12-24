@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Api from "../../../api/Api";
 
 const HomeWarranty = () => {
-
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const [showForm, setShowForm] = useState(false);
     const [data, setData] = useState([])
 
@@ -15,39 +15,53 @@ const HomeWarranty = () => {
     }
 
     const getData = async() => {
-        const response = await Api.getGuaranteeingProduction();
-        setData(response.data.productions)
-        console.log(response)
+        try {
+            const response = await Api.getGuaranteeingProduction();
+            setData(response.data.productions)
+            console.log(response)
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     useEffect(() => {
         getData();
     }, [])
 
-    const { register, handleSubmit, setError, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
-        if (data.status === "success") {
-            delete data.status;
-            const response = await Api.guaranteeDone(data);
-            console.log(response)
-            if(response.status == 200) {
-                showFormSend();
-                getData();
+        try {
+            if (data.status === "success") {
+                delete data.status;
+                const response = await Api.guaranteeDone(data);
+                console.log(response)
+                if(response.status == 200) {
+                    showFormSend();
+                    alert(`Đã gửi trả cho khách hàng
+                    Mã sản phẩm: ${data.production_id.slice(0,10)}`)
+                    getData();
+                }
+            } else {
+                delete data.status;
+                const response = await Api.guaranteeError(data);
+                console.log(response)
+                if(response.status == 200) {
+                    showFormSend();
+                    alert(`Đã gửi về nhà máy
+                    Mã sản phẩm: ${data.production_id.slice(0,10)}`)
+                    getData();
+                }
             }
-        } else {
-            delete data.status;
-            const response = await Api.guaranteeError(data);
-            console.log(response)
-            if(response.status == 200) {
-                showFormSend();
-                getData();
-            }
+        } catch(err) {
+            console.log(err);
         }
     }
+
     return (
-        <div>
+        <div className="container">
             <h1>Sản phẩm đang bảo hành</h1>
-            <button className="button-send" onClick={showFormSend}>Gửi trả</button>
+            <div className="button-container">
+                <button className="button-send" onClick={showFormSend}>Gửi trả</button>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -71,11 +85,11 @@ const HomeWarranty = () => {
                 </tbody>
             </table>
             {showForm && 
-            <div className="back-form-send">
-                <div className="modal-form-send"></div>
+            <div className="back-form">
+                <div className="modal-form"></div>
                 <form className="form-send" onSubmit={handleSubmit(onSubmit)}>
                     <h2>Gửi trả sản phẩm bảo hành</h2>
-                    <div className="send-container">
+                    <div className="form-container">
                         <label><b>Mã sản phẩm</b><br/>
                             <select className="select-production-id" placeholder="Chọn mã sản phẩm" {...register("production_id", {required: true})}>
                                 {data.map((item, index) => (
@@ -96,7 +110,7 @@ const HomeWarranty = () => {
                         {errors.status && <span><br/>{errors.status.message}</span>}
                 </label>
                     </div>
-                    <div className="send-footer">
+                    <div className="form-footer">
                         <button className="exit-send" onClick={showFormSend}>Đóng</button>
                         <button className="save-send" type="submit">Gửi trả</button>
                     </div>

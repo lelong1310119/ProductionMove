@@ -7,16 +7,21 @@ const Warrantied = () => {
     const [data, setData] = useState([])
 
     const getData = async() => {
-        const response = await Api.getGuaranteeDoneProduction();
-        setData(response.data.productions)
-        console.log(response)
+        try {
+            const response = await Api.getGuaranteeDoneProduction();
+            setData(response.data.productions)
+            console.log(response)
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     useEffect(() => {
         getData();
     }, [])
+    
     return (
-        <div>
+        <div className="container">
             <h1>Sản phẩm đã bảo hành</h1>
             <table>
                 <thead>

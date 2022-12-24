@@ -8,26 +8,40 @@ const SoldProduct = () => {
     const [data, setData] = useState([])
     const [warrantyCenter, setWarrantyCenter] = useState([]);
     const [productions, setProductions] = useState([]);
+    const [showForm, setShowForm] = useState(false)
+    const { register, handleSubmit, setError, formState: { errors } } = useForm();
 
     const getData = async() => {
-        const response = await Api.getSoldProduction();
-        setData(response.data.productions)
+        try {
+            const response = await Api.getSoldProduction();
+            setData(response.data.productions)
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     const getWarrantyCenter = async() => {
-        const response = await Api.getWarrantyCenter();
-        setWarrantyCenter(response.data.warranty_centers)
+        try {
+            const response = await Api.getWarrantyCenter();
+            setWarrantyCenter(response.data.warranty_centers)
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     const getProduction = async() => {
-        const response = await Api.getSoldProduction();
-        const data = response.data.productions;
-        const productionStatus = data.filter(item => {
-            if (item.status === "GUARANTEEING" || item.status === "GUARANTEE_EXPIRED") return false;
-            return true;
-        })
-        console.log(data);
-        setProductions(productionStatus);
+        try {
+            const response = await Api.getSoldProduction();
+            const data = response.data.productions;
+            const productionStatus = data.filter(item => {
+                if (item.status === "GUARANTEEING" || item.status === "GUARANTEE_EXPIRED" || item.status === "ERROR_NEED_BACK_TO_MANUFACTURE_FACTORY") return false;
+                return true;
+            })
+            console.log(data);
+            setProductions(productionStatus);
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     useEffect(() => {
@@ -36,25 +50,33 @@ const SoldProduct = () => {
         getProduction();
     }, [])
 
-    const [showForm, setShowForm] = useState(false)
-    const { register, handleSubmit, setError, formState: { errors } } = useForm();
     const showFormWarranty = () => {
         showForm ? setShowForm(false) : setShowForm(true);
     }
+
+    // submit guarantee
     const onSubmit = async (data) => {
-        const response = await Api.guaranteeProduction(data);
-        console.log(response);
-        if(response.status == 200) {
-            showFormWarranty();
-            getData();
-            getProduction();
+        try {
+            const response = await Api.guaranteeProduction(data);
+            console.log(response);
+            if(response.status == 200) {
+                showFormWarranty();
+                alert(`Đã gửi bảo hành sản phẩm 
+                Mã sản phẩm: ${data.production_id.slice(0,10)}`)
+                getData();
+                getProduction();
+            }
+        } catch(err) {
+            console.log(err);
         }
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Sản phẩm đã bán</h1>
-            <button className="button-warranty-product" onClick={showFormWarranty}>Bảo hành/Triệu hồi</button>
+            <div className="button-container">
+                <button className="button-warranty-product" onClick={showFormWarranty}>Bảo hành/Triệu hồi</button>
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -79,11 +101,11 @@ const SoldProduct = () => {
                 </tbody>
             </table>
             {showForm && 
-            <div className="back-form-warrantyproduct">
-                <div className="modal-form-warrantyproduct"></div>
+            <div className="back-form">
+                <div className="modal-form"></div>
                 <form className="warranty-product" onSubmit={handleSubmit(onSubmit)}>
                     <h2>Bảo hành và triệu hồi sản phẩm</h2>
-                    <div className="warranty-product-container">
+                    <div className="form-container">
                         <label><b>Mã sản phẩm</b><br/>
                             <select className="select-production-id" placeholder="Chọn mã sản phẩm" {...register("production_id", {required: true})}>
                                 {productions.map((item, index) => (
@@ -105,7 +127,7 @@ const SoldProduct = () => {
                             {errors.day_sent && <span><br/>Bạn chưa chọn ngày gửi bảo hành</span>}
                         </label>
                     </div>
-                    <div className="warranty-product-footer">
+                    <div className="form-footer">
                         <button className="exit-warrantyproduct" onClick={showFormWarranty}>Đóng</button>
                         <button className="save-warrantyproduct" type="submit">Lưu</button>
                     </div>

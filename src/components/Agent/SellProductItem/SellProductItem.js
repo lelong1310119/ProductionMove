@@ -8,7 +8,7 @@ const SellProductItem = ({props}) => {
             <div>
                 <p>Mã sản phẩm: {props.production_id.slice(0, 10)}<br/>
                 Cơ sở sản xuất: {props.manufacture_factory_name}<br/>
-                Dòng sản phẩm: {props.product_line_name}<br/>
+                Dòng: {props.product_line_name}<br/>
                 RAM: {props.ram}<br/>
                 Camera: {props.camera}<br/>
                 Màn hình: {props.screen}<br/>
@@ -16,7 +16,7 @@ const SellProductItem = ({props}) => {
                 Pin: {props.pin}<br/>
                 Giá: {props.price}<br/>
                 Ngày sản xuất: {props.production_time}<br/>
-                Ngày nhận sản phẩm: {props.import_time}</p>
+                Ngày nhận: {props.import_time}</p>
             </div>
         </div>
     )

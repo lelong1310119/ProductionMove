@@ -1,10 +1,10 @@
 import "./AgentItem.css"
-import imageProductline from "../../../assets/iphone.png"
+import imgAgent from "../../../assets/imageAgent.jpg"
 
 const AgentItem = ({props}) => {
     return (
         <div className="agent">
-            <img src={imageProductline}  className="image-agent"/>
+            <img src={imgAgent}  className="image-agent"/>
             <div>
                 <h3>{props.name}</h3>
                 <p>

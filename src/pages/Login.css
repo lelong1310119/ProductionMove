@@ -3,7 +3,7 @@
     position: relative;
     width: 300px;
     padding: 20px;
-    background-color: blue;
+    /* background-color: blue; */
     justify-content: center;
     align-items: center;
     border-radius: 15px;
@@ -20,9 +20,6 @@
     align-items: center
 }
 
-label {
-    height: 100px;
-}
 .select-login {
     width: 268px;
     padding: 12px 20px;
@@ -32,13 +29,14 @@ label {
     box-sizing: border-box;
 }
 
-label {
+.login-form label {
     margin: 10px;
     text-align: left;
     position: static;
     display: block;
-    height: 80px;
+    height: 90px;
 }
+
 .login-button {
     padding: 5px;
     border-radius: 5px;

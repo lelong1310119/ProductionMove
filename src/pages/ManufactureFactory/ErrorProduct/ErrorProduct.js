@@ -7,9 +7,13 @@ const ErrorProduct = () => {
     const [data, setData] = useState([])
 
     const getData = async() => {
-        const response = await Api.getProductionError();
-        setData(response.data.productions)
-        console.log(response);
+        try {
+            const response = await Api.getProductionError();
+            if (response.status == 200) setData(response.data.productions)
+            console.log(response);
+        } catch(err) {
+            console.log(err)
+        }
     }
 
     useEffect(() => {
@@ -17,7 +21,7 @@ const ErrorProduct = () => {
     }, [])
 
     return (
-        <div>
+        <div className="container">
             <h1>Sản phẩm lỗi không bảo hành được</h1>
             <table>
                 <thead>

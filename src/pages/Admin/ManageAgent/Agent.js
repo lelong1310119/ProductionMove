@@ -5,11 +5,13 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 
 const Agent = () => {
-    const { register, handleSubmit, setError, formState: { errors } } = useForm();
-
-    const [data, setData] = useState([])
     const postURL = "https://production-move-be.vercel.app/api/admins/create-distribution-agent"
     const getURL = "https://production-move-be.vercel.app/api/distribution-agents"
+    const { register, handleSubmit, setError, formState: { errors } } = useForm();
+    const [data, setData] = useState([])
+    const [showForm, setShowForm] = useState(false);
+
+    // submit add agent
     const onSubmit = data => { 
         if (data.password !== data.repass){
             setError("repass", {message: "Mật khẩu không trùng khớp"})
@@ -18,10 +20,16 @@ const Agent = () => {
             axios.post(postURL, data).then((response) => {
                 if (response.status == 200) {
                     showFormAgent();
+                    alert(`Thêm thành công đại lý phân phối
+                    Tên: ${data.name}
+                    Mã: ${response.data.distribution_agent_id.slice(0,10)}`)
                     axios.get(getURL).then((response) => {
                         setData(response.data.distribution_agents);
                     });
                 }
+            })
+            .catch((err) => {
+                console.log(err);
             });
         }   
     }
@@ -29,29 +37,33 @@ const Agent = () => {
     useEffect(() => {
         axios.get(getURL).then((response) => {
             setData(response.data.distribution_agents);
+        })
+        .catch((err) => {
+            console.log(err);
         });
     }, [])
-    const [showForm, setShowForm] = useState(false);
 
     const showFormAgent = () => {
         showForm ? setShowForm(false) : setShowForm(true);
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Quản lý đại lý phân phối</h1>
-            <button className="button-add-agent" onClick={showFormAgent}>Thêm mới</button>
-            <div className="container-agent">
+            <div className="button-container">
+                <button className="button-add-agent" onClick={showFormAgent}>Thêm mới</button>
+            </div>
+            <div className="container-item">
                 {data.map((item, index) => (
                     <AgentItem key={index} props={item}/>
                 ))}
             </div>
             {showForm && 
-            <div className="back-form-addagent">
-                <div className="modal-form-agent"></div>
+            <div className="back-form">
+                <div className="modal-form"></div>
                 <form className="add-agent" onSubmit={handleSubmit(onSubmit)}>
                     <h2>Thêm đại lý phân phối</h2>
-                    <div className="add-agent-container">
+                    <div className="form-container">
                         <label><b>Tên đại lý</b><br/>
                             <input type="text" placeholder="Nhập tên đại lý phân phối" {...register("name", {required: true})}/>
                             {errors.name && <span><br/>Bạn chưa nhập tên đại lý</span>}
@@ -77,7 +89,7 @@ const Agent = () => {
                             {errors.repass && <span><br/>{errors.repass.message}</span>}
                         </label>
                     </div>
-                    <div className="add-agent-footer">
+                    <div className="form-footer">
                         <button className="exit-addagent" onClick={showFormAgent}>Đóng</button>
                         <button className="save-agent" type="submit">Lưu</button>
                     </div>

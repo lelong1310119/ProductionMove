@@ -5,9 +5,13 @@ import axios from "axios"
 import { useForm } from "react-hook-form";
 
 const Warranty = () => {
+    const [showForm, setShowForm] = useState(false);
     const [data, setData] = useState([])
     const postURL = "https://production-move-be.vercel.app/api/admins/create-warranty-center"
     const getURL = "https://production-move-be.vercel.app/api/warranty-centers"
+    const { register, handleSubmit, setError, formState: { errors } } = useForm();
+
+    // submit add warrantyCenter
     const onSubmit = data => { 
         if (data.password !== data.repass){
             setError("repass", {message: "Mật khẩu không trùng khớp"})
@@ -16,10 +20,16 @@ const Warranty = () => {
             axios.post(postURL, data).then((response) => {
                 if (response.status == 200) {
                     showFormWarranty();
+                    alert(`Thêm thành công trung tâm bảo hành
+                    Tên: ${data.name}
+                    Mã: ${response.data.warranty_center_id.slice(0,10)}`)
                     axios.get(getURL).then((response) => {
                         setData(response.data.warranty_centers);
                     });
                 }
+            })
+            .catch((err) => {
+                console.log(err);
             });
         }   
     }
@@ -27,32 +37,33 @@ const Warranty = () => {
     useEffect(() => {
         axios.get(getURL).then((response) => {
             setData(response.data.warranty_centers);
+        })
+        .catch((err) => {
+            console.log(err);
         });
     }, [])
-
-    const [showForm, setShowForm] = useState(false);
 
     const showFormWarranty = () => {
         showForm ? setShowForm(false) : setShowForm(true);
     }
 
-    const { register, handleSubmit, setError, formState: { errors } } = useForm();
-
     return (
-        <div>
+        <div className="container">
             <h1>Quản lý trung tâm bảo hành</h1>
-            <button className="button-add-warranty" onClick={showFormWarranty}>Thêm mới</button>
-            <div className="container-warranty">
+            <div className="button-container">
+                <button className="button-add-warranty" onClick={showFormWarranty}>Thêm mới</button>
+            </div>
+            <div className="container-item">
                 {data.map((item, index) => (
                     <WarrantyItem key={index} props={item}/>
                 ))}
             </div>
             {showForm && 
-            <div className="back-form-addwarranty">
-                <div className="modal-form-warranty"></div>
+            <div className="back-form">
+                <div className="modal-form"></div>
                 <form className="add-warranty" onSubmit={handleSubmit(onSubmit)}>
                     <h2>Thêm trung tâm bảo hành</h2>
-                    <div className="add-warranty-container">
+                    <div className="form-container">
                         <label><b>Tên trung tâm bảo hành</b><br/>
                             <input type="text" placeholder="Nhập tên cơ sở sản xuất" {...register("name", {required: true})}/>
                             {errors.name && <span><br/>Bạn chưa nhập trung tâm bảo hành</span>}
@@ -78,7 +89,7 @@ const Warranty = () => {
                             {errors.repass && <span><br/>{errors.repass.message}</span>}
                         </label>
                     </div>
-                    <div className="add-warranty-footer">
+                    <div className="form-footer">
                         <button className="exit-addwarranty" onClick={showFormWarranty}>Đóng</button>
                         <button className="save-warranty" type="submit">Lưu</button>
                     </div>

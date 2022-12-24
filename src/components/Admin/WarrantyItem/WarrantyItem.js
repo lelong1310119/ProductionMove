@@ -1,10 +1,10 @@
 import "./WarrantyItem.css"
-import imageProductline from "../../../assets/iphone.png"
+import imageWarranty from "../../../assets/imageWarranty.jfif"
 
 const WarrantyItem = ({props}) => {
     return (
         <div className="warranty">
-            <img src={imageProductline}  className="image-warranty"/>
+            <img src={imageWarranty}  className="image-warranty"/>
             <div>
                 <h3>{props.name}</h3>
                 <p>

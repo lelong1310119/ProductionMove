@@ -10,7 +10,7 @@ const ProductionIotItem = ({props}) => {
                 <h3>{props.name}</h3>
                 <p>
                 Mã lô: {props.product_lot_id.slice(0, 10)}<br/>
-                Dòng sản phẩm: {props.product_line.name}<br/>
+                Dòng: {props.product_line.name}<br/>
                 Ram: {props.product_line.configuration.ram}<br/>
                 CPU: {props.product_line.configuration.cpu}<br/>
                 Màn hình: {props.product_line.configuration.screen}<br/>

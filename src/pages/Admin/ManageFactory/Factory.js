@@ -6,10 +6,12 @@ import { useForm } from "react-hook-form";
 
 const Factory = () => {
     const { register, handleSubmit, setError, formState: { errors } } = useForm();
-
     const [data, setData] = useState([])
     const postURL = "https://production-move-be.vercel.app/api/admins/create-manufacture-factory"
     const getURL = "https://production-move-be.vercel.app/api/manufacture-factories"
+    const [showForm, setShowForm] = useState(false);
+
+    // submit add factory
     const onSubmit = data => { 
         if (data.password !== data.repass){
             setError("repass", {message: "Mật khẩu không trùng khớp"})
@@ -18,10 +20,16 @@ const Factory = () => {
             axios.post(postURL, data).then((response) => {
                 if (response.status == 200) {
                     showFormFactory();
+                    alert(`Thêm thành công cơ sở sản xuất
+                    Tên: ${data.name}
+                    Mã: ${response.data.manufacture_factory_id.slice(0,10)}`)
                     axios.get(getURL).then((response) => {
                         setData(response.data.manufacture_factories);
                     });
                 }
+            })
+            .catch((err) => {
+                console.log(err);
             });
         }   
     }
@@ -29,29 +37,33 @@ const Factory = () => {
     useEffect(() => {
         axios.get(getURL).then((response) => {
             setData(response.data.manufacture_factories);
+        })
+        .catch((err) => {
+            console.log(err);
         });
     }, [])
-    const [showForm, setShowForm] = useState(false);
 
     const showFormFactory = () => {
         showForm ? setShowForm(false) : setShowForm(true);
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Quản lý cơ sở sản xuất</h1>
-            <button className="button-add-factory" onClick={showFormFactory}>Thêm mới</button>
-            <div className="container-factory">
+            <div className="button-container">
+                <button className="button-add-factory" onClick={showFormFactory}>Thêm mới</button>
+            </div>
+            <div className="container-item">
                 {data.map((item, index) => (
                     <FactoryItem key={index} props={item}/>
                 ))}
             </div>
             {showForm && 
-            <div className="back-form-addfactory">
-                <div className="modal-form-factory"></div>
+            <div className="back-form">
+                <div className="modal-form"></div>
                 <form className="add-factory" onSubmit={handleSubmit(onSubmit)}>
                     <h2>Thêm cơ sở sản xuất</h2>
-                    <div className="add-factory-container">
+                    <div className="form-container">
                         <label><b>Tên cơ sở sản xuất</b><br/>
                             <input type="text" placeholder="Nhập tên cơ sở sản xuất" {...register("name", {required: true})}/>
                             {errors.name && <span><br/>Bạn chưa nhập tên cơ sở sản xuất</span>}
@@ -77,7 +89,7 @@ const Factory = () => {
                             {errors.repass && <span><br/>{errors.repass.message}</span>}
                         </label>
                     </div>
-                    <div className="add-factory-footer">
+                    <div className="form-footer">
                         <button className="exit-addfactory" onClick={showFormFactory}>Đóng</button>
                         <button className="save-factory" type="submit">Lưu</button>
                     </div>

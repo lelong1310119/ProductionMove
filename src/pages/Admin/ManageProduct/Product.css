@@ -1,14 +1,3 @@
-th,td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-table {
-    border: 1px solid black;
-    border-collapse: collapse;
-    margin: 0 auto;
-}
-
-body {
-    text-align: center;
+.filter-admin {
+    display: flex;
 }

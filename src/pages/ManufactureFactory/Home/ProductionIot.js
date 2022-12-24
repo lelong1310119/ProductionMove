@@ -21,25 +21,38 @@ const ProductionIot = () => {
     }
 
     const getData = async() => {
-        const response = await Api.getProductionIot();
-        const data = response.data.production_lots;
-        const productiots = data.filter( item => !item.distribution_agent_name)
-        console.log(data)
-        console.log(productiots)
-        setData(data)
-        setProductIot(productiots);
+        try {
+            const response = await Api.getProductionIot();
+            const data = response.data.production_lots;
+            const productiots = data.filter( item => !item.distribution_agent_name)
+            console.log("getProductionIot", data)
+            setData(data)
+            setProductIot(productiots);
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     const getAgent =  async () => {
-        const response = await Api.getAgent();
-        setAgent(response.data.distribution_agents);
-        console.log(response)
+        try {
+            const response = await Api.getAgent();
+            setAgent(response.data.distribution_agents);
+            console.log(response)
+        } catch(err) {
+            console.log(err);
+        }
     }
+
     const getProductline = async () => {
-        const response = await Api.getProductline();
-        setProductline(response.data.product_lines);
-        console.log(response)
+        try {
+            const response = await Api.getProductline();
+            setProductline(response.data.product_lines);
+            console.log(response)
+        } catch(err) {
+            console.log(err);
+        }
     }
+
     useEffect(() => {
         getProductline();
         getData();
@@ -47,44 +60,60 @@ const ProductionIot = () => {
         console.log(productline)
     }, [])
 
-    // đang lỗi
+    // add productionIot
     const onSubmit = async(data) => {
-        data.production_number = Number(data.production_number)
-        const response = await Api.createProductionIot(data);
-        console.log(response);
-        if(response.status == 200) {
-            showFormProductIot();
-            getData();
+        try {
+            data.production_number = Number(data.production_number)
+            const response = await Api.createProductionIot(data);
+            console.log(response);
+            if(response.status == 200) {
+                showFormProductIot();
+                alert(`Đã thêm lô sản phẩm mới
+                Mã lô: ${response.data.product_lot_id.slice(0,10)}`)
+                getData();
+            }
+        } catch(err) {
+            console.log(err);
         }
     }
 
+    // export production Iot
     const onSubmitExport = async(data) => {
-        console.log(data);
-        const response = await Api.exportProductionIot(data);
-        console.log(response);
-        if(response.status == 200) {
-            showFormExportProductIot();
-            getData();
+        try {
+            console.log(data);
+            const response = await Api.exportProductionIot(data);
+            console.log(response);
+            if(response.status == 200) {
+                showFormExportProductIot();
+                alert(`Đã xuất lô đến đại lý
+                Mã lô: ${data.product_lot_id.slice(0,10)}`)
+                getData();
+            }
+        } catch(err) {
+            console.log(err);
         }
     }
+
     return (
-        <div>
+        <div className="container">
             <h1>Quản lý lô sản phẩm</h1>
-            <button className="button-add-production-iot" onClick={showFormProductIot}>Thêm mới</button>
-            <button className="button-add-production-iot" onClick={showFormExportProductIot}>Xuất kho</button>
+            <div className="button-container">
+                <button className="button" onClick={showFormProductIot}>Thêm mới</button>
+                <button className="button" onClick={showFormExportProductIot}>Xuất kho</button>
+            </div>
             <div className="">
-                <div className="container-production-iot">
+                <div className="container-item">
                     {data.map((item, index) => (
                         <ProductionIotItem key={index} props={item}/>
                     ))}
                 </div>
             </div>
             {showForm && 
-            <div className="back-form-addproductioniot">
-                <div className="modal-form-productioniot"></div>
+            <div className="back-form">
+                <div className="modal-form"></div>
                 <form className="add-productioniot" onSubmit={handleSubmit(onSubmit)}>
                     <h2>Thêm lô sản phẩm mới</h2>
-                    <div className="add-productioniot-container">
+                    <div className="form-container">
                         <label><b>Dòng sản phẩm</b><br/>
                             <select className="select-productline" placeholder="Chọn dòng sản phẩm" {...register("product_line_id", {required: true})}>
                                 {productline.map((item, index) => (
@@ -102,7 +131,7 @@ const ProductionIot = () => {
                             {errors.production_time && <span><br/>Bạn chưa chọn ngày sản xuất</span>}
                         </label>
                     </div>
-                    <div className="add-productioniot-footer">
+                    <div className="form-footer">
                         <button className="exit-addproductioniot" onClick={showFormProductIot}>Đóng</button>
                         <button className="save-productioniot" type="submit">Lưu</button>
                     </div>
@@ -110,11 +139,11 @@ const ProductionIot = () => {
             </div>
             }
             {showFormExport && 
-            <div className="back-form-addproductioniot">
-                <div className="modal-form-productioniot"></div>
+            <div className="back-form">
+                <div className="modal-form"></div>
                 <form className="add-productioniot" onSubmit={handleSubmit(onSubmitExport)}>
                     <h2>Xuất lô sản phẩm</h2>
-                    <div className="add-productioniot-container">
+                    <div className="form-container">
                         <label><b>Lô sản phẩm</b><br/>
                             <select className="select-productiot" placeholder="Chọn lô sản phẩm" {...register("product_lot_id", {required: true})}>
                                 {productIot.map((item, index) => (
@@ -136,7 +165,7 @@ const ProductionIot = () => {
                             {errors.export_time && <span><br/>Bạn chưa chọn ngày xuất kho</span>}
                         </label>
                     </div>
-                    <div className="add-productioniot-footer">
+                    <div className="form-footer">
                         <button className="exit-addproductioniot" onClick={showFormExportProductIot}>Đóng</button>
                         <button className="save-productioniot" type="submit">Lưu</button>
                     </div>

@@ -4,13 +4,16 @@ import ReturnProductItem from "../../../components/ManufactureFactory/ReturnProd
 import Api from "../../../api/Api";
 
 const ReturnProduct = () => {
-
     const [data, setData] = useState([])
 
     const getData = async() => {
-        const response = await Api.getProductionReturn();
-        setData(response.data.productions)
-        console.log(response);
+        try {
+            const response = await Api.getProductionReturn();
+            if (response.status == 200) setData(response.data.productions)
+            console.log(response);
+        } catch(err) {
+            console.log(err)
+        }
     }
 
     useEffect(() => {
@@ -18,7 +21,7 @@ const ReturnProduct = () => {
     }, [])
 
     return (
-        <div>
+        <div className="container">
             <h1>Sản phẩm bị trả về</h1>
             <table>
                 <thead>

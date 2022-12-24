@@ -6,27 +6,48 @@ import Api from "../../../api/Api";
 
 const SellProduct = () => {
     const [data, setData] = useState([]);
+    const [showForm, setShowForm] = useState(false)
+    const [showFormReturn, setShowFormReturn] = useState(false)
+    const { register, handleSubmit, formState: { errors } } = useForm();
 
     const getData = async() => {
-        const response = await Api.getOnSaleProduction();
-        setData(response.data.productions)
+        try {
+            const response = await Api.getOnSaleProduction();
+            if (response.status == 200) setData(response.data.productions)
+        } catch(err) {
+            console.log(err)
+        }
     }
+
+    // submit sell production
     const onSubmitSell = async (data) => {
-        const response = await Api.soldProduction(data);
-        console.log(response);
-        if(response.status == 200) {
-            showFormSellProduct();
-            getData();
+        try {
+            const response = await Api.soldProduction(data);
+            console.log(response);
+            if(response.status == 200) {
+                showFormSellProduct();
+                alert(`Đã bán sản phẩm 
+                Mã sản phẩm: ${data.production_id.slice(0,10)}`)
+                getData();
+            }
+        } catch(err) {
+            console.log(err)
         }
     }   
 
+    // submit return production
     const onSubmitReturn = async (data) => {
-        const response = await Api.sendProductionBackFactory(data);
-        console.log(response);
-        if(response.status == 200) {
-            showFormReturnProduct();
-            getData();
-
+        try {
+            const response = await Api.sendProductionBackFactory(data);
+            console.log(response);
+            if(response.status == 200) {
+                showFormReturnProduct();
+                alert(`Đã gửi trả sản phẩm về nhà máy 
+                Mã sản phẩm: ${data.production_id.slice(0,10)}`)
+                getData();
+            }
+        } catch(err) {
+            console.log(err)
         }
     }   
 
@@ -34,10 +55,6 @@ const SellProduct = () => {
         getData();
     }, [])
 
-    const [showForm, setShowForm] = useState(false)
-    const [showFormReturn, setShowFormReturn] = useState(false)
-
-    const { register, handleSubmit, setError, formState: { errors } } = useForm();
     const showFormSellProduct = () => {
         showForm ? setShowForm(false) : setShowForm(true);
     }
@@ -47,23 +64,25 @@ const SellProduct = () => {
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Bán sản phẩm</h1>
-            <button className="button-sell-product" onClick={showFormSellProduct}>Bán sản phẩm</button>
-            <button className="button-return-product" onClick={showFormReturnProduct}>Gửi trả</button>
+            <div className="button-container">
+                <button className="button-return-product" onClick={showFormReturnProduct}>Gửi trả</button>
+                <button className="button-sell-product" onClick={showFormSellProduct}>Bán sản phẩm</button>
+            </div>
             <div className="">
-                <div className="container-sell-product">
+                <div className="container-item">
                     {data.map((item, index) => (
                         <SellProductItem key={index} props={item}/>
                     ))}
                 </div>
             </div>
             {showForm && 
-            <div className="back-form-sellproduct">
-                <div className="modal-form-sellproduct"></div>
+            <div className="back-form">
+                <div className="modal-form"></div>
                 <form className="sell-product" onSubmit={handleSubmit(onSubmitSell)}>
                     <h2>Bán sản phẩm</h2>
-                    <div className="sell-product-container">
+                    <div className="form-container">
                         <label><b>Mã sản phẩm</b><br/>
                             <select className="select-production-id" placeholder="Chọn mã sản phẩm" {...register("production_id", {required: true})}>
                                 {data.map((item, index) => (
@@ -89,7 +108,7 @@ const SellProduct = () => {
                             {errors.sold_at && <span><br/>Bạn chưa chọn ngày bán</span>}
                         </label>
                     </div>
-                    <div className="sell-product-footer">
+                    <div className="form-footer">
                         <button className="exit-sellproduct" onClick={showFormSellProduct}>Đóng</button>
                         <button className="save-sellproduct" type="submit">Lưu</button>
                     </div>
@@ -97,11 +116,11 @@ const SellProduct = () => {
             </div>
             }
             {showFormReturn && 
-            <div className="back-form-returnproduct">
-                <div className="modal-form-returnproduct"></div>
+            <div className="back-form">
+                <div className="modal-form"></div>
                 <form className="return-product" onSubmit={handleSubmit(onSubmitReturn)}>
                     <h2>Bán sản phẩm</h2>
-                    <div className="return-product-container">
+                    <div className="form-container">
                         <label><b>Mã sản phẩm</b><br/>
                             <select className="select-production-id" placeholder="Chọn mã sản phẩm" {...register("production_id", {required: true})}>
                                 {data.map((item, index) => (
@@ -115,7 +134,7 @@ const SellProduct = () => {
                             {errors.day_sent && <span><br/>Bạn chưa chọn ngày gửi trả</span>}
                         </label>
                     </div>
-                    <div className="return-product-footer">
+                    <div className="form-footer">
                         <button className="exit-returnproduct" onClick={showFormReturnProduct}>Đóng</button>
                         <button className="save-returnproduct" type="submit">Lưu</button>
                     </div>

@@ -5,9 +5,13 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 
 const HomeAdmin = () => {
-    const [data, setData] = useState([])
     const postURL = "https://production-move-be.vercel.app/api/admins/create-production-line"
     const getURL = "https://production-move-be.vercel.app/api/product-lines"
+    const [showForm, setShowForm] = useState(false)
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const [data, setData] = useState([])
+
+    // submit add productline
     const onSubmit = data => { 
         let body = {
             name: data.name.trim(),
@@ -24,42 +28,51 @@ const HomeAdmin = () => {
         axios.post(postURL, body).then((response) => {
             if (response.status == 200) {
                 showFormProductline();
+                alert(`Tạo thành công dòng sản phẩm mới
+                Tên: ${body.name}
+                Mã: ${response.data.product_line_id.slice(0,10)}`)
                 axios.get(getURL).then((response) => {
                     setData(response.data.product_lines);
                 });
             }
-        });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }   
 
     useEffect(() => {
         axios.get(getURL).then((response) => {
             setData(response.data.product_lines);
+        })
+        .catch((err) => {
+            console.log(err);
         });
     }, [])
-    const [showForm, setShowForm] = useState(false)
-
-    const { register, handleSubmit, setError, formState: { errors } } = useForm();
+    
     const showFormProductline = () => {
         showForm ? setShowForm(false) : setShowForm(true);
     }
 
     return (
-        <div>
+        <div className="container">
             <h1>Quản lý dòng sản phẩm</h1>
-            <button className="button-add-productline" onClick={showFormProductline}>Thêm mới</button>
+            <div className="button-container">
+                <button className="button-add-productline" onClick={showFormProductline}>Thêm mới</button>
+            </div>
             <div className="">
-                <div className="container-home">
+                <div className="container-item">
                     {data.map((item, index) => (
                         <ProductLineItem key={index} props={item}/>
                     ))}
                 </div>
             </div>
             {showForm && 
-            <div className="back-form-addproductline">
-                <div className="modal-form-productline"></div>
+            <div className="back-form">
+                <div className="modal-form"></div>
                 <form className="add-productline" onSubmit={handleSubmit(onSubmit)}>
                     <h2>Thêm dòng sản phẩm mới</h2>
-                    <div className="add-productline-container">
+                    <div className="form-container">
                         <label><b>Tên sản phẩm</b><br/>
                             <input type="text" placeholder="Nhập tên dòng sản phẩm" {...register("name", {required: true})}/>
                             {errors.name && <span><br/>Bạn chưa nhập tên dòng sản phẩm</span>}
@@ -93,7 +106,7 @@ const HomeAdmin = () => {
                             {errors.time_guarantee && <span><br/>Bạn chưa nhập thời gian bảo hành</span>}
                         </label>
                     </div>
-                    <div className="add-productline-footer">
+                    <div className="form-footer">
                         <button className="exit-addproductline" onClick={showFormProductline}>Đóng</button>
                         <button className="save-productline" type="submit">Lưu</button>
                     </div>

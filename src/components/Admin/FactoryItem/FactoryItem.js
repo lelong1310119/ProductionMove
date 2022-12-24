@@ -1,10 +1,10 @@
 import "./FactoryItem.css"
-import imageProductline from "../../../assets/iphone.png"
+import imageFactory from "../../../assets/imageFactory.webp"
 
 const FactoryItem = ({props}) => {
     return (
         <div className="factory">
-            <img src={imageProductline}  className="image-factory"/>
+            <img src={imageFactory}  className="image-factory"/>
             <div>
                 <h3>{props.name}</h3>
                 <p>
