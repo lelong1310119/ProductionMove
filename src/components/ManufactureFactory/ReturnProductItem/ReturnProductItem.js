@@ -6,7 +6,6 @@ const ReturnProductItem  = ({props, index}) => {
             <td>{props.product_line_name}</td>
             <td>{props.product_lot_id.slice(0, 10)}</td>
             <td>{props.production_time}</td>
-            <td>{props.distribution_agent_name}</td>
         </tr>
     )
 }

@@ -9,7 +9,6 @@ const ErrorProductItem  = ({props, index}) => {
             <td>{props.sold_at}</td>
             <td>{props.distribution_agent_name}</td>
             <td>{props.warranty_center_name}</td>
-            <td>{props.guarantee_number}</td>
             <td>{props.customer_name}</td>
         </tr>
     )

@@ -206,3 +206,7 @@ form h2 {
   padding: 20px;
   border-radius: 15px;
 }
+
+td, th {
+  height: 50px;
+}

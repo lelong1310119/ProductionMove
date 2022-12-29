@@ -6,124 +6,130 @@ import Api from "../../../api/Api";
 
 const Product = () => {
     const getURL = "https://production-move-be.vercel.app/api/productions?page=1&per_page=10000"
-    const [data, setData] = useState([]);
+    const [dataProductions, setData] = useState([]);
+    const [filterData, setFilterData] = useState([])
     const [productline, setProductline] = useState([]);
     const [factory, setFactory] = useState([])
     const [agent, setAgent] = useState([])
     const [warrantyCenter, setWarrantyCenter] = useState([]);
-    const [filter_productline, setFilter_productline] = useState("all")
-    const [filter_factory, setFilter_factory] = useState("all")
-    const [filter_agent, setFilter_agent] = useState("all")
-    const [filter_warranty, setFilter_warranty] = useState("all")
-
+    const [filterProductline, setFilterProductline] = useState("all");
+    const [filterFactory, setFilterFactory] = useState("all")
+    const [filterAgent, setFilterAgent] = useState("all")
+    const [filterwarrantyCenter, setFilterWarrantyCenter] = useState("all");
+    const [status, setStatus] = useState("all")
 
     useEffect(() => {
         getData();
-        // getProductline();
-        // getFactory();
-        // getAgent();
-        // getWarrantyCenter();
+        getProductline();
+        getFactory();
+        getAgent();
+        getWarrantyCenter();
     }, [])
 
     const getData = async () => {
         try {
             const response = await axios.get(getURL)
-            if (response.status == 200) {
-            setData(response.data.productions);
-        }
+            if (response.status === 200) {
+                setData(response.data.productions);
+                setFilterData(response.data.productions)
+            }
         } catch(err) {
             console.log(err)
         }
     }
 
-    // const getProductline = async () => {
-    //     const response = await Api.getProductline();
-    //     if (response.status == 200) {
-    //         setProductline(response.data.product_lines);
-    //     }
-    // }
+    const getProductline = async () => {
+        const response = await Api.getProductline();
+        if (response.status === 200) {
+            setProductline(response.data.product_lines);
+        }
+    }
 
-    // const getFactory = async () => {
-    //     const response = await Api.getFactory();
-    //     if (response.status == 200) {
-    //         setFactory(response.data.manufacture_factories);
-    //     }
-    // }
+    const getFactory = async () => {
+        const response = await Api.getFactory();
+        if (response.status === 200) {
+            setFactory(response.data.manufacture_factories);
+        }
+    }
 
-    // const getAgent = async () => {
-    //     const response = await Api.getAgent();
-    //     if (response.status == 200) {
-    //         setAgent(response.data.distribution_agents);
-    //     }
-    // }
+    const getAgent = async () => {
+        const response = await Api.getAgent();
+        if (response.status === 200) {
+            setAgent(response.data.distribution_agents);
+        }
+    }
 
-    // const getWarrantyCenter = async () => {
-    //     const response = await Api.getWarrantyCenter();
-    //     if (response.status == 200) {
-    //         setWarrantyCenter(response.data.warranty_centers);
-    //     }
-    // }
+    const getWarrantyCenter = async () => {
+        const response = await Api.getWarrantyCenter();
+        if (response.status === 200) {
+            setWarrantyCenter(response.data.warranty_centers);
+        }
+    }
 
-    // const filter = () => {
-    //     getData();
-    //     let filter;
-    //     if (filter_productline != "all") {
-    //         filter = data.filter(item => item.product_line_name == filter_productline)
-    //     }
-    //     if (filter_factory != "all") {
-    //         filter = filter.filter(item => item.manufacture_factory_name == filter_factory)
-    //     }
-    //     if (filter_agent != "all") {
-    //         filter = filter.filter(item => item.distribution_agent_name == filter_agent)
-    //     }
-    //     if (filter_warranty != "all") {
-    //         filter = filter.filter(item => item.warranty_center_name == filter_warranty)
-    //     }
-    //     setData(filter)
-    //     getProductline();
-    //     getFactory();
-    //     getAgent();
-    //     getWarrantyCenter();
-    // }
+    const handleProductline = (e) => {
+        setFilterProductline(e.target.value)
+    }
 
-    // const filterProductline = (e) => {
-    //     console.log(e.target.value);
-    //     setFilter_productline(e.target.value);
-    //     filter();
-    // }
+    const handleFactory = (e) => {
+        setFilterFactory(e.target.value)
+    }
 
-    // const filterFactory = (e) => {
-    //     console.log(e.target.value);
-    //     setFilter_factory(e.target.value);
-    //     filter();
-    // }
+    const handleAgent = (e) => {
+        setFilterAgent(e.target.value)
+    }
 
-    // const filterAgent = (e) => {
-    //     console.log(e.target.value);
-    //     setFilter_agent(e.target.value);
-    //     filter();
-    // }
+    const handleWarrantyCenter = (e) => {
+        setFilterWarrantyCenter(e.target.value)
+    }
 
-    // const filterWarranty = (e) => {
-    //     console.log(e.target.value);
-    //     setFilter_warranty(e.target.value);
-    //     filter();
+    useEffect(() => {
+        let productions = dataProductions;
+        if (filterProductline != "all") {
+            productions = productions.filter(item => item.product_line_name == filterProductline);
+        }
+        if (filterFactory != "all") {
+            productions = productions.filter(item => item.manufacture_factory_name == filterFactory);
+        }
+        if (filterAgent != "all") {
+            productions = productions.filter(item => item.distribution_agent_name == filterAgent);
+        }
+        if (filterwarrantyCenter != "all") {
+            productions = productions.filter(item => item.warranty_center_name == filterwarrantyCenter);
+        }
+        setFilterData(productions);
+    },[filterProductline, filterFactory, filterAgent, filterwarrantyCenter])
+
+    // const onSubmit = () => {
+    //     let productions = dataProductions;
+    //     if (filterProductline != "all") {
+    //         productions = productions.filter(item => item.product_line_name == filterProductline);
+    //     }
+    //     if (filterFactory != "all") {
+    //         productions = productions.filter(item => item.manufacture_factory_name == filterFactory);
+    //     }
+    //     if (filterAgent != "all") {
+    //         productions = productions.filter(item => item.distribution_agent_name == filterAgent);
+    //     }
+    //     if (filterwarrantyCenter != "all") {
+    //         productions = productions.filter(item => item.warranty_center_name == filterwarrantyCenter);
+    //     }
+    //     setFilterData(productions);
     // }
 
     return (
         <div className="container">
             <h1>Quản lý trạng thái sản phẩm</h1>
-            {/* <div className="filter-admin">
+            {/* <form className="filter-admin" onSubmit={handleSubmit(onSubmit)}>
                 <label><b>Dòng sản phẩm</b><br/>
-                    <select onChange={filterProductline}>
-                        <option value="all">Tất cả</option>
+                    <select {...register("product_line_name")}>
+                        <option onClick={onSubmit} value="all">Tất cả</option>
                         {productline.map((item, index) => (
-                            <option value={item.name} key = {index}>{item.name}</option>
+                            <option onClick={onSubmit} value={item.name} key = {index}>{item.name}</option>
                         ))}
                     </select>
                 </label>
                 <label><b>Cơ sở sản xuất</b><br/>
-                    <select onChange={filterFactory}>
+                    <select onChange={onSubmit} {...register("manufacture_factory_name")}>
                         <option value="all">Tất cả</option>
                         {factory.map((item, index) => (
                             <option value={item.name} key = {index}>{item.name}</option>
@@ -131,7 +137,7 @@ const Product = () => {
                     </select>
                 </label>
                 <label><b>Đại lý</b><br/>
-                    <select onChange={filterAgent}>
+                <select onChange={onSubmit} {...register("distribution_agent_name")}>
                         <option value="all">Tất cả</option>
                         {agent.map((item, index) => (
                             <option value={item.name} key = {index}>{item.name}</option>
@@ -139,33 +145,67 @@ const Product = () => {
                     </select>
                 </label>
                 <label><b>Trung tâm bảo hành</b><br/>
-                    <select onChange={filterWarranty}>
+                    <select onChange={onSubmit} {...register("warranty_center_name")}>
                         <option value="all">Tất cả</option>
                         {warrantyCenter.map((item, index) => (
                             <option value={item.name} key = {index}>{item.name}</option>
                         ))}
                     </select>
                 </label>
-            </div> */}
+                <button type="submit">Lọc</button>
+            </form> */}
+            <div className="filter-admin">
+                <label><b>Dòng sản phẩm</b><br/>
+                    <select onChange={handleProductline}>
+                        <option value="all">Tất cả</option>
+                        {productline.map((item, index) => (
+                            <option value={item.name} key = {index}>{item.name}</option>
+                        ))}
+                    </select>
+                </label>
+                <label><b>Cơ sở sản xuất</b><br/>
+                    <select onChange={handleFactory}>
+                        <option value="all">Tất cả</option>
+                        {factory.map((item, index) => (
+                            <option value={item.name} key = {index}>{item.name}</option>
+                        ))}
+                    </select>
+                </label>
+                <label><b>Đại lý</b><br/>
+                <select onChange={handleAgent}>
+                        <option value="all">Tất cả</option>
+                        {agent.map((item, index) => (
+                            <option value={item.name} key = {index}>{item.name}</option>
+                        ))}
+                    </select>
+                </label>
+                <label><b>Trung tâm bảo hành</b><br/>
+                    <select onChange={handleWarrantyCenter}>
+                        <option value="all">Tất cả</option>
+                        {warrantyCenter.map((item, index) => (
+                            <option value={item.name} key = {index}>{item.name}</option>
+                        ))}
+                    </select>
+                </label>
+            </div>
             <table>
                 <thead>
                     <tr>
-                        <th>STT</th>
-                        <th>Mã sản phẩm</th>
-                        <th>Dòng sản phẩm</th>
-                        <th>Lô sản xuất</th>
-                        <th>Cơ sở sản xuất</th>
-                        <th>Ngày sản xuất</th>
-                        <th>Tình trạng</th>
-                        <th>Ngày bán</th>
-                        <th>Đại lý</th>
-                        <th>TT Bảo hành</th>
-                        <th>Số lần BH</th>
-                        <th>Khách hàng</th>
+                        <th style={{width: "22px"}}>STT</th>
+                        <th style={{width: "100px"}}>Mã sản phẩm</th>
+                        <th style={{width: "170px"}}>Dòng sản phẩm</th>
+                        <th style={{width: "100px"}}>Lô sản xuất</th>
+                        <th style={{width: "96px"}}>Cơ sở sản xuất</th>
+                        <th style={{width: "100px"}}>Ngày sản xuất</th>
+                        <th style={{width: "200px"}}>Tình trạng</th>
+                        <th style={{width: "100px"}}>Ngày bán</th>
+                        <th style={{width: "96px"}}>Đại lý</th>
+                        <th style={{width: "96px"}}>TT Bảo hành</th>
+                        <th style={{width: "120px"}}>Khách hàng</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item, index) => (
+                    {filterData.map((item, index) => (
                         <ProductStateItem key={index} props={item} index = {index + 1}/>
                     ))}
                 </tbody>

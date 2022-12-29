@@ -13,16 +13,16 @@ const ProductStateItem  = ({props, index}) => {
             props.status = "Đang bảo hành";
             break;
         case "DISTRIBUTE_BACK_TO_CUSTOMER":
-            props.status = "Trả về khách hàng";
+            props.status = "Đã bảo hành xong và trả về khách hàng";
             break;
         case "ERROR_NEED_BACK_TO_MANUFACTURE_FACTORY":
-            props.status = "Trả về nhà máy";
+            props.status = "Trả về nhà máy do không bảo hành được";
             break;
         case "GUARANTEE_EXPIRED":
             props.status = "Hết hạn bảo hành";
             break;
         case "BACK_TO_FACTORY":
-            props.status = "Không bán được, trả về nhà máy";
+            props.status = "Trả về nhà máy do Không bán được";
             break;
         default:
             props.status = props.status;
@@ -39,7 +39,6 @@ const ProductStateItem  = ({props, index}) => {
             <td>{props.sold_at}</td>
             <td>{props.distribution_agent_name}</td>
             <td>{props.warranty_center_name}</td>
-            <td>{props.guarantee_number}</td>
             <td>{props.customer_name}</td>
         </tr>
     )

@@ -1,3 +1,13 @@
 .filter-admin {
     display: flex;
 }
+
+.button-filter {
+    padding: 10px;
+    box-sizing: content-box;
+}
+
+th {
+    height: 40px;
+    width: 80px;
+}
