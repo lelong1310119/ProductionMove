@@ -30,6 +30,7 @@ const Login = () => {
 
     return (
         <div className="back-login">
+            <div className="modal-form"></div>
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
                 <label><b>Tên tài khoản</b><br/>
                     <input type="text" placeholder="Nhập tên tài khoản" {...register("username", {required: true})}/>
