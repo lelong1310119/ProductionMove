@@ -58,7 +58,7 @@ const HomeAdmin = () => {
         <div className="container">
             <h1>Quản lý dòng sản phẩm</h1>
             <div className="button-container">
-                <button className="button-add-productline" onClick={showFormProductline}>Thêm mới</button>
+                <button style={{color: "#0F62FE"}} className="button-add-productline" onClick={showFormProductline}>Thêm mới</button>
             </div>
             <div className="">
                 <div className="container-item">

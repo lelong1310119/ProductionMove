@@ -67,8 +67,8 @@ const SellProduct = () => {
         <div className="container">
             <h1>Bán sản phẩm</h1>
             <div className="button-container">
-                <button className="button-return-product" onClick={showFormReturnProduct}>Gửi trả</button>
-                <button className="button-sell-product" onClick={showFormSellProduct}>Bán sản phẩm</button>
+                <button style={{color: "#0F62FE"}} className="button-return-product" onClick={showFormReturnProduct}>Gửi trả</button>
+                <button style={{color: "#0F62FE"}} className="button-sell-product" onClick={showFormSellProduct}>Bán sản phẩm</button>
             </div>
             <div className="">
                 <div className="container-item">

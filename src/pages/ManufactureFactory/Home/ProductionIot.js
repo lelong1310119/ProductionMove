@@ -98,8 +98,8 @@ const ProductionIot = () => {
         <div className="container">
             <h1>Quản lý lô sản phẩm</h1>
             <div className="button-container">
-                <button className="button" onClick={showFormProductIot}>Thêm mới</button>
-                <button className="button" onClick={showFormExportProductIot}>Xuất kho</button>
+                <button style={{color: "#0F62FE"}} className="button" onClick={showFormProductIot}>Thêm mới</button>
+                <button style={{color: "#0F62FE"}} className="button" onClick={showFormExportProductIot}>Xuất kho</button>
             </div>
             <div className="">
                 <div className="container-item">

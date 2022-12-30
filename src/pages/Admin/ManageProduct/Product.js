@@ -82,6 +82,11 @@ const Product = () => {
         setFilterWarrantyCenter(e.target.value)
     }
 
+    const handleStatus = (e) => {
+        setStatus(e.target.value)
+        console.log(e.target.value)
+    }
+
     useEffect(() => {
         let productions = dataProductions;
         if (filterProductline != "all") {
@@ -96,8 +101,11 @@ const Product = () => {
         if (filterwarrantyCenter != "all") {
             productions = productions.filter(item => item.warranty_center_name == filterwarrantyCenter);
         }
+        if (status != "all") {
+            productions = productions.filter(item => item.status === status);
+        }
         setFilterData(productions);
-    },[filterProductline, filterFactory, filterAgent, filterwarrantyCenter])
+    },[filterProductline, filterFactory, filterAgent, filterwarrantyCenter, status])
 
     // const onSubmit = () => {
     //     let productions = dataProductions;
@@ -156,7 +164,7 @@ const Product = () => {
             </form> */}
             <div className="filter-admin">
                 <label><b>Dòng sản phẩm</b><br/>
-                    <select onChange={handleProductline}>
+                    <select style={{width: "220px"}} onChange={handleProductline}>
                         <option value="all">Tất cả</option>
                         {productline.map((item, index) => (
                             <option value={item.name} key = {index}>{item.name}</option>
@@ -164,7 +172,7 @@ const Product = () => {
                     </select>
                 </label>
                 <label><b>Cơ sở sản xuất</b><br/>
-                    <select onChange={handleFactory}>
+                    <select style={{width: "220px"}} onChange={handleFactory}>
                         <option value="all">Tất cả</option>
                         {factory.map((item, index) => (
                             <option value={item.name} key = {index}>{item.name}</option>
@@ -172,7 +180,7 @@ const Product = () => {
                     </select>
                 </label>
                 <label><b>Đại lý</b><br/>
-                <select onChange={handleAgent}>
+                <select style={{width: "220px"}} onChange={handleAgent}>
                         <option value="all">Tất cả</option>
                         {agent.map((item, index) => (
                             <option value={item.name} key = {index}>{item.name}</option>
@@ -180,11 +188,24 @@ const Product = () => {
                     </select>
                 </label>
                 <label><b>Trung tâm bảo hành</b><br/>
-                    <select onChange={handleWarrantyCenter}>
+                    <select style={{width: "220px"}} onChange={handleWarrantyCenter}>
                         <option value="all">Tất cả</option>
                         {warrantyCenter.map((item, index) => (
                             <option value={item.name} key = {index}>{item.name}</option>
                         ))}
+                    </select>
+                </label>
+                <label><b>Trạng thái</b><br/>
+                    <select style={{width: "220px"}} onChange={handleStatus}>
+                        <option value="all">Tất cả</option>
+                        <option value="Mới sản xuất">Mới sản xuất</option>
+                        <option value="Đã phân phối">Đã phân phối</option>
+                        <option value="Đã bán">Đã bán</option>
+                        <option value="Đang bảo hành">Đang bảo hành</option>
+                        <option value="Đã bảo hành xong và trả về khách hàng">Đã bảo hành xong</option>
+                        <option value="Trả về nhà máy do không bảo hành được">Không bảo hành được</option>
+                        <option value="Trả về nhà máy do Không bán được">Không bán được</option>
+                        <option value="Hết hạn bảo hành">Hết hạn bảo hành</option>
                     </select>
                 </label>
             </div>

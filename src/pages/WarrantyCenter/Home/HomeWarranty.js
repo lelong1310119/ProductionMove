@@ -117,7 +117,7 @@ const HomeWarranty = () => {
         <div className="container">
             <h1>Sản phẩm đang bảo hành</h1>
             <div className="button-container">
-                <button className="button-send" onClick={showFormSend}>Gửi trả</button>
+                <button style={{color: "#0F62FE"}} className="button-send" onClick={showFormSend}>Gửi trả</button>
             </div>
             <div className="filter-admin">
                 <label><b>Dòng sản phẩm</b><br/>

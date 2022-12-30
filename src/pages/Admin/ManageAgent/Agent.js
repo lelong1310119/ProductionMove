@@ -51,7 +51,7 @@ const Agent = () => {
         <div className="container">
             <h1>Quản lý đại lý phân phối</h1>
             <div className="button-container">
-                <button className="button-add-agent" onClick={showFormAgent}>Thêm mới</button>
+                <button style={{color: "#0F62FE"}} className="button-add-agent" onClick={showFormAgent}>Thêm mới</button>
             </div>
             <div className="container-item">
                 {data.map((item, index) => (
@@ -68,21 +68,21 @@ const Agent = () => {
                             <input type="text" placeholder="Nhập tên đại lý phân phối" {...register("name", {required: true})}/>
                             {errors.name && <span><br/>Bạn chưa nhập tên đại lý</span>}
                         </label>
-                        <label><b>Địa chỉ</b><br/>
-                            <input type="text" placeholder="Nhập địa chỉ" {...register("address", {required: true})}/>
-                            {errors.address && <span><br/>Bạn chưa nhập địa chỉ</span>}
-                        </label>
-                        <label><b>Số điện thoại</b><br/>
-                            <input type="text" placeholder="Nhập số điện thoại" {...register("phone_number", {required: true})}/>
-                            {errors.phone_number && <span><br/>Bạn chưa nhập số điện thoại</span>}
-                        </label>
                         <label><b>Tên tài khoản</b><br/>
                             <input type="text" placeholder="Nhập tên tài khoản" {...register("username", {required: true})}/>
                             {errors.username && <span><br/>Bạn chưa nhập tên tài khoản</span>}
                         </label>
+                        <label><b>Địa chỉ</b><br/>
+                            <input type="text" placeholder="Nhập địa chỉ" {...register("address", {required: true})}/>
+                            {errors.address && <span><br/>Bạn chưa nhập địa chỉ</span>}
+                        </label>
                         <label><b>Mật khẩu</b><br/>
                             <input type="password" placeholder="Nhập mật khẩu" {...register("password", {required: true})}/>
                             {errors.password && <span><br/>Bạn chưa nhập mật khẩu</span>}
+                        </label>
+                        <label><b>Số điện thoại</b><br/>
+                            <input type="text" placeholder="Nhập số điện thoại" {...register("phone_number", {required: true})}/>
+                            {errors.phone_number && <span><br/>Bạn chưa nhập số điện thoại</span>}
                         </label>
                         <label><b>Nhập lại mật khẩu</b><br/>
                             <input type="password" placeholder="Nhập lại mật khẩu" {...register("repass", {required: true})}/>

@@ -124,7 +124,7 @@ const SoldProduct = () => {
         <div className="container">
             <h1>Sản phẩm đã bán</h1>
             <div className="button-container">
-                <button className="button-warranty-product" onClick={showFormWarranty}>Bảo hành/Triệu hồi</button>
+                <button style={{color: "#0F62FE"}} className="button-warranty-product" onClick={showFormWarranty}>Bảo hành/Triệu hồi</button>
             </div>
             <div className="filter-admin">
                 <label><b>Dòng sản phẩm</b><br/>
